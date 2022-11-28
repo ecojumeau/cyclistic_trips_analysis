@@ -1,1 +1,10 @@
 #Cargando librerias y paquetes
+install.packages("tidyverse")
+library(tidyverse)
+library(lubridate)
+library(ggplot2)
+library(dplyr)
+library(data.table)
+library(tidyr)
+getwd()
+setwd("C:/Users/contr/OneDrive/Documentos")
