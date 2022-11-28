@@ -51,3 +51,22 @@ all_trips <- all_trips %>%
 
 #Confirmamos que solo hayan dos tipos de usuarios.
 table(all_trips$member_casual)
+
+#Cambiando formatos de fecha para agregar datos
+all_trips$date <- as.Date(all_trips$started_at)
+all_trips$month <- format(as.Date(all_trips$date), "%m")
+all_trips$day <- format(as.Date(all_trips$date), "%d")
+all_trips$year <- format(as.Date(all_trips$date), "%Y")
+all_trips$day_of_week <- format(as.Date(all_trips$date), "%A")
+
+#Agregango columna donde se muestre la cantidad de tiempo por cada viaje.
+all_trips$ride_length <- difftime(all_trips$ended_at,all_trips$started_at)
+str(all_trips)
+
+#Cambiando el tipo de dato de la columna ride_length.
+is.factor(all_trips$ride_length)
+all_trips$ride_length <- as.numeric(as.character(all_trips$ride_length))
+is.numeric(all_trips$ride_length)
+
+#Limpiando datos de espacios vacios cuando se hicieron pruebas de calidad por parte de la empresa.
+all_trips_v2 <- all_trips[!(all_trips$start_station_name == "HQ QR" | all_trips$ride_length<0),]
