@@ -81,3 +81,44 @@ aggregate(all_trips_v2$ride_length ~ all_trips_v2$member_casual, FUN = median)
 aggregate(all_trips_v2$ride_length ~ all_trips_v2$member_casual, FUN = max)
 aggregate(all_trips_v2$ride_length ~ all_trips_v2$member_casual, FUN = min)
 
+#Los días de la semana están desordenados, entonces lo arreglamos
+all_trips_v2$day_of_week <- format(as.Date(all_trips_v2$date), "%A")
+all_trips_v2$day_of_week <- ordered(all_trips_v2$day_of_week,levels=c("lunes","martes","miércoles","jueves","viernes","sábado","domingo"))
+
+#Visualizando el tiempo de viaje promedio por día se la semana y por tipo de usuario
+aggregate(all_trips_v2$ride_length ~ all_trips_v2$member_casual + all_trips_v2$day_of_week, FUN = mean)
+
+#Analizando datos de usuarios por duración y día de la semana
+all_trips_v2 %>%
+  mutate(weekday = wday(started_at)) %>%
+  group_by(member_casual, weekday) %>%
+  summarise(number_of_rides = n(),
+            average_duration = mean(ride_length)) %>%
+  arrange(member_casual,weekday)
+
+#Visualizando número de viajes por tipo de usuarios
+all_trips_v2 %>% 
+  mutate(weekday = wday(started_at)) %>% 
+  group_by(member_casual, weekday) %>% 
+  summarise(number_of_rides = n()
+            ,average_duration = mean(ride_length)) %>% 
+  arrange(member_casual, weekday)  %>% 
+  ggplot(aes(x = weekday, y = number_of_rides, fill = member_casual)) +
+  geom_col(position = "dodge")
+#Se puede apreciar que, en todos los días, los miembros hacen más viajes en promedio.
+
+#Visualizando los datos por promedio del viaje
+all_trips_v2 %>% 
+  mutate(weekday = wday(started_at)) %>% 
+  group_by(member_casual, weekday) %>% 
+  summarise(number_of_rides = n()
+            ,average_duration = mean(ride_length)) %>% 
+  arrange(member_casual, weekday)  %>% 
+  ggplot(aes(x = weekday, y = average_duration, fill = member_casual)) +
+  geom_col(position = "dodge")
+#En promedio los usuarios casuales hacen viajes más largos en toda la semana.
+
+
+counts <- aggregate(all_trips_v2$ride_length ~ all_trips_v2$member_casual + all_trips_v2$day_of_week, FUN = mean)
+write.csv(counts, file = "C:/Users/contr/OneDrive/Documentos/Cyclistic Trips/all_trips_v2")
+
