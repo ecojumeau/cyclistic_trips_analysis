@@ -23,3 +23,16 @@ aug_2022 <- read.csv("C:/Users/contr/OneDrive/Documentos/Cyclistic Trips/202208-
 sep_2022 <- read.csv("C:/Users/contr/OneDrive/Documentos/Cyclistic Trips/202209-divvy-tripdata.csv")
 oct_2022 <- read.csv("C:/Users/contr/OneDrive/Documentos/Cyclistic Trips/202210-divvy-tripdata.csv")
 
+#Explorando los datos
+colnames(nov_2021)
+colnames(dec_2021)
+colnames(jan_2022)
+colnames(feb_2022)
+colnames(mar_2022)
+colnames(apr_2022)
+colnames(may_2022)
+colnames(jun_2022)
+colnames(jul_2022)
+colnames(aug_2022)
+colnames(sep_2022)
+colnames(oct_2022)
