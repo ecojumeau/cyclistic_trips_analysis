@@ -70,3 +70,14 @@ is.numeric(all_trips$ride_length)
 
 #Limpiando datos de espacios vacios cuando se hicieron pruebas de calidad por parte de la empresa.
 all_trips_v2 <- all_trips[!(all_trips$start_station_name == "HQ QR" | all_trips$ride_length<0),]
+
+#Ahora comienza el análisis descriptivo de los datos 
+#Realizamos un análisis descriptivo en la columna ride_length
+summary(all_trips_v2$ride_length)
+
+#Comparando los datos por cada tipo de usuario
+aggregate(all_trips_v2$ride_length ~ all_trips_v2$member_casual, FUN = mean)
+aggregate(all_trips_v2$ride_length ~ all_trips_v2$member_casual, FUN = median)
+aggregate(all_trips_v2$ride_length ~ all_trips_v2$member_casual, FUN = max)
+aggregate(all_trips_v2$ride_length ~ all_trips_v2$member_casual, FUN = min)
+
