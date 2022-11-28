@@ -38,4 +38,4 @@ colnames(sep_2022)
 colnames(oct_2022)
 
 #Estos son todos los datos para el análisis.
-#Preparando los datos para el análisis.
+#A partir de ahora, se deben procesar los datos para preparar el análisis.
