@@ -96,15 +96,16 @@ all_trips_v2 %>%
             average_duration = mean(ride_length)) %>%
   arrange(member_casual,weekday)
 
-#Visualizando número de viajes por tipo de usuarios
-all_trips_v2 %>% 
-  mutate(weekday = wday(started_at)) %>% 
-  group_by(member_casual, weekday) %>% 
-  summarise(number_of_rides = n()
-            ,average_duration = mean(ride_length)) %>% 
-  arrange(member_casual, weekday)  %>% 
+#Visualizando número de viajes cada día por tipo de usuarios 
+all_trips_v2 %>%
+  mutate(weekday = wday(started_at)) %>%
+  group_by(member_casual, weekday) %>%
+  summarise(number_of_rides = n(),
+            average_duration = mean(ride_length)) %>%
+  arrange(member_casual, weekday) %>%
   ggplot(aes(x = weekday, y = number_of_rides, fill = member_casual)) +
-  geom_col(position = "dodge")
+  geom_col(position = "dodge") +
+  theme(axis.text.y=element_blank())
 #Se puede apreciar que, en todos los días, los miembros hacen más viajes en promedio.
 
 #Visualizando los datos por promedio del viaje
